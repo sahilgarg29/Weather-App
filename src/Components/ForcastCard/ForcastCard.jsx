@@ -2,9 +2,9 @@ import React from 'react'
 
 import './forcastCard.css';
 
-const ForcastCard = () => {
+const ForcastCard = ({dayData}) => {
   return (
-    <div>ForcastCard</div>
+    <div>{new Date(dayData.dt * 1000).toLocaleDateString()}</div>
   )
 }
 
