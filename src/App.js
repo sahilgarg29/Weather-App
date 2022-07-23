@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { fetchwithCoordinartes, fetchCurrentWithCoordinartes } from './Apis/openWeather';
+import { fetchwithCoordinartes, fetchCurrentWithCoordinartes, fetchCurrentWithCityName } from './Apis/openWeather';
 import './App.css';
 import SearchBar from './Components/SearchBar';
 
@@ -11,7 +11,7 @@ function App() {
     if ("geolocation" in navigator) {
         navigator.geolocation.getCurrentPosition((position) => {
         console.log('latitude', position.coords.latitude, 'longitude', position.coords.longitude);
-        // fetchCurrentWithCoordinartes(position.coords.latitude, position.coords.longitude).then((res) => {
+        // fetchCurrentWithCityName(location).then((res) => {
         //   console.log(res)
         // }).catch((err) => {
         //   console.log(err)
