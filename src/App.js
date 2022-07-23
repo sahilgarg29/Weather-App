@@ -32,6 +32,9 @@ function App() {
     <div className='app'>
       <SearchBar location={location} onLocationChange={setLocation} />
       <Dailyforcast dailyData={forcastData? forcastData.daily: []} />
+      <div className='currentForcast'>
+
+      </div>
     </div>
   );
 }
