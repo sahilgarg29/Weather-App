@@ -3,23 +3,25 @@ import Chart from 'react-apexcharts';
 
 import './weatherChart.css';
 
-const WeatherChart = ({series}) => {
+const WeatherChart = ({series, labels}) => {
 
   const [options] = useState({
     chart: {
       type: 'area',
-      // height: 350,
+      height: 350,
       zoom: {
         enabled: false
-      }
+      },
+      
     },
     dataLabels: {
-      enabled: false
+      enabled: true
     },
+    labels: labels,
     stroke: {
       curve: 'straight'
     },
-    // labels: [1,2,3,4,5],
+    labels: labels,
     
     legend: {
       horizontalAlign: 'left'
@@ -27,7 +29,7 @@ const WeatherChart = ({series}) => {
   })
 
   return (
-    <div><Chart options={options} type="area" series={[{name: "any", data: series}]}/></div>
+    <div><Chart options={options} type="area" series={[{name: "", data: series}]} height={350}/></div>
   )
 }
 

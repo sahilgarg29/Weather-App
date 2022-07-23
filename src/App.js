@@ -31,11 +31,16 @@ function App() {
   }, [])
 
   function filterDataByDate(hourlyData, day){
-    let data = hourlyData.filter((e) => new Date(e.dt * 1000).getDay() === day);
+    let data = hourlyData.filter((e, i) => new Date(e.dt * 1000).getDay() === day && i % 2 === 0);
     console.log(data);
     return data;
   }
 
+  function convertToTimeArray(hourlyData){
+    let arr = hourlyData.map((e) => new Date(e.dt * 1000).getUTCHours() + ':00');
+    console.log(arr)
+    return arr;
+  }
 
   function convertToArray(hourlyData){
     let arr = hourlyData.map((e) => e.temp);
@@ -50,7 +55,7 @@ function App() {
       <Dailyforcast dailyData={forcastData? forcastData.daily: []} />
       <div className='currentForcast'>
         <TemperatureCard temp="39" icon={Clouds}/>
-        <WeatherChart series={convertToArray(filterDataByDate(forcastData? forcastData.hourly: [], selectedDay))} />
+        <WeatherChart series={convertToArray(filterDataByDate(forcastData? forcastData.hourly: [], selectedDay))} labels={convertToTimeArray(filterDataByDate(forcastData? forcastData.hourly: [], selectedDay))}/>
       </div>
     </div>
   );
