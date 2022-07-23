@@ -3,7 +3,13 @@ import React, { useRef } from 'react'
 import './forcastCard.css';
 import Sunny from './../../images/sun.png';
 import Rainy from './../../images/rain.png';
-import Clouds from './../../images/clouds.png';
+import FewClouds from './../../images/clouds.png';
+import Clouds from './../../images/scattered_clouds.png';
+import ThunderStorm from './../../images/thunderstorm.png';
+import Snow from './../../images/snow.png';
+import Haze from './../../images/mist.png';
+
+
 
 
 
@@ -19,12 +25,19 @@ const ForcastCard = ({dayData}) => {
       case '01n':
         return Sunny;
       case '02d':
+        return FewClouds;
       case '03d':
       case '04d':
         return Clouds;
       case '09d':
       case '10d':
         return Rainy;
+      case '011d':
+        return ThunderStorm;
+      case '13d':
+        return Snow;
+      case '50d':
+        return Haze;
     }
   }
 
