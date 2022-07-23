@@ -4,6 +4,15 @@
   align-items: center;
   font-weight: 600;
   text-transform: capitalize;
+  font-size: 0.8rem;
+  min-width: 100px;
+  padding: 0.5rem 1rem; 
+  
+}
+
+.forcastContainer:hover{
+  border: 2px solid #008FFB;
+  background-color: #FFFDF7;
 }
 
 .forcastImage{
@@ -13,6 +22,7 @@
 
 .forcastContainer p{
   margin-bottom: 0.5rem;
+  text-align: center;
 }
 
 

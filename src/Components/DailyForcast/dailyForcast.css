@@ -1,0 +1,6 @@
+.dailyForcastContainer{
+  display: flex;
+  gap: 1.5rem;
+  overflow-x: scroll;
+  margin-top: 2rem;
+}

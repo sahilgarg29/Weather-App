@@ -3,6 +3,8 @@ import React, { useRef } from 'react'
 import './forcastCard.css';
 import Sunny from './../../images/sun.png';
 import Rainy from './../../images/rain.png';
+import Clouds from './../../images/clouds.png';
+
 
 
 var days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -19,6 +21,7 @@ const ForcastCard = ({dayData}) => {
       case '02d':
       case '03d':
       case '04d':
+        return Clouds;
       case '09d':
       case '10d':
         return Rainy;

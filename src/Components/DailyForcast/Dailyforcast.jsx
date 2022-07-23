@@ -5,7 +5,7 @@ import './dailyForcast.css';
 
 const Dailyforcast = ({dailyData}) => {
   return (
-    <div>{dailyData.map((e) => <ForcastCard dayData={e} key={e.dt}/>)}</div>
+    <div className='dailyForcastContainer'>{dailyData.map((e) => <ForcastCard dayData={e} key={e.dt}/>)}</div>
   )
 }
 
