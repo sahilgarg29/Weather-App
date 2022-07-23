@@ -3,6 +3,8 @@ import { fetchHourlyDailyWithCoordinartes, fetchCurrentWithCoordinartes, fetchCu
 import './App.css';
 import Dailyforcast from './Components/DailyForcast';
 import SearchBar from './Components/SearchBar';
+import TemperatureCard from './Components/TempratureCard';
+import Clouds from './images/clouds.png'
 
 function App() {
 
@@ -33,7 +35,7 @@ function App() {
       <SearchBar location={location} onLocationChange={setLocation} />
       <Dailyforcast dailyData={forcastData? forcastData.daily: []} />
       <div className='currentForcast'>
-
+        <TemperatureCard temp="39" icon={Clouds}/>
       </div>
     </div>
   );
