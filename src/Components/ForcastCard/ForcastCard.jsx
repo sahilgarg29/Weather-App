@@ -14,7 +14,7 @@ import Haze from './../../images/mist.png';
 
 
 var days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-const ForcastCard = ({dayData}) => {
+const ForcastCard = ({dayData, isSelected, onDayChange}) => {
   const date =  useRef(new Date(dayData.dt * 1000));
 
   function correctImage(){
@@ -42,7 +42,7 @@ const ForcastCard = ({dayData}) => {
   }
 
   return (
-    <div className='forcastContainer'>
+    <div onClick={() => onDayChange(date.current.getDay())} className={isSelected? "forcastContainer selected": "forcastContainer"}>
       <p className='forcastDay'>{days[date.current.getDay()]}</p>
       <p className='temp'><span>{Math.round(dayData.temp.max)}</span><span>&#176;</span> <span>{Math.round(dayData.temp.min)}</span><span>&#176;</span></p>
       <img src={correctImage()} className="forcastImage" />

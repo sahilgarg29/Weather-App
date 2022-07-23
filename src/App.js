@@ -11,7 +11,7 @@ function App() {
 
   const [location, setLocation] = useState("Bangalore");
   const [forcastData, setForcastData] = useState(null);
-  const [selectedDay, setSelectedDay] = useState(1);
+  const [selectedDay, setSelectedDay] = useState(0);
   useEffect(() => {
     if ("geolocation" in navigator) {
         navigator.geolocation.getCurrentPosition((position) => {
@@ -52,7 +52,7 @@ function App() {
   return (
     <div className='app'>
       <SearchBar location={location} onLocationChange={setLocation} />
-      <Dailyforcast dailyData={forcastData? forcastData.daily: []} />
+      <Dailyforcast dailyData={forcastData? forcastData.daily: []} onDayChange={setSelectedDay} selectedDay={selectedDay}/>
       <div className='currentForcast'>
         <TemperatureCard temp="39" icon={Clouds}/>
         <WeatherChart series={convertToArray(filterDataByDate(forcastData? forcastData.hourly: [], selectedDay))} labels={convertToTimeArray(filterDataByDate(forcastData? forcastData.hourly: [], selectedDay))}/>
