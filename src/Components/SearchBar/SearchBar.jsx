@@ -1,9 +1,11 @@
 import React from 'react';
 import './searchBar.css';
 
-const SearchBar = () => {
+const SearchBar = ({location, onLocationChange}) => {
   return (
-    <div>SearchBar</div>
+    <div>
+      <input type="text" name="search" id="search" onChange={(e) => onLocationChange(e.target.value)} value={location}/>
+    </div>
   )
 }
 
