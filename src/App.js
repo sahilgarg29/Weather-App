@@ -4,13 +4,14 @@ import './App.css';
 import Dailyforcast from './Components/DailyForcast';
 import SearchBar from './Components/SearchBar';
 import TemperatureCard from './Components/TempratureCard';
+import WeatherChart from './Components/WeatherChart';
 import Clouds from './images/clouds.png'
 
 function App() {
 
   const [location, setLocation] = useState("Bangalore");
   const [forcastData, setForcastData] = useState(null);
-
+  const [selectedDay, setSelectedDay] = useState(1);
   useEffect(() => {
     if ("geolocation" in navigator) {
         navigator.geolocation.getCurrentPosition((position) => {
@@ -29,6 +30,19 @@ function App() {
     }
   }, [])
 
+  function filterDataByDate(hourlyData, day){
+    let data = hourlyData.filter((e) => new Date(e.dt * 1000).getDay() === day);
+    console.log(data);
+    return data;
+  }
+
+
+  function convertToArray(hourlyData){
+    let arr = hourlyData.map((e) => e.temp);
+    console.log(arr);
+    return arr;
+  }
+
 
   return (
     <div className='app'>
@@ -36,6 +50,7 @@ function App() {
       <Dailyforcast dailyData={forcastData? forcastData.daily: []} />
       <div className='currentForcast'>
         <TemperatureCard temp="39" icon={Clouds}/>
+        <WeatherChart series={convertToArray(filterDataByDate(forcastData? forcastData.hourly: [], selectedDay))} />
       </div>
     </div>
   );
