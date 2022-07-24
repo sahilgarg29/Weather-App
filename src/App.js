@@ -55,18 +55,21 @@ function App() {
 
   function filterDataByDate(hourlyData, day){
     let data = hourlyData.filter((e, i) => new Date(e.dt * 1000).getDay() === day && i % 2 === 0);
+    if(data.length === 0){
+      data = hourlyData.slice(hourlyData.length-24, hourlyData.length).filter((e, i) => i % 2 === 0);
+    }
     return data;
   }
 
   function convertToTimeArray(hourlyData){
     let arr = hourlyData.map((e) => new Date(e.dt * 1000).getUTCHours() + ':00');
-    console.log(arr)
+    // console.log(arr)
     return arr;
   }
 
   function convertToArray(hourlyData){
     let arr = hourlyData.map((e) => Math.round(e.temp));
-    console.log(arr)
+    // console.log(arr)
     return arr;
   }
 

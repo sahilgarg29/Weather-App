@@ -24,7 +24,7 @@ export default function correctImage(icon){
       case '13d':
         return Snow;
       case '50d':
-        return Haze;
+        return Sunny;
       default:
         return Sunny;
     }
