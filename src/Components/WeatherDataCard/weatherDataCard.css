@@ -1,0 +1,9 @@
+.weatherDataContainer{
+  padding: 1em 0.5em;
+  background-color: #f3fbff;
+  flex-grow: 1;
+}
+
+.weatherDataContainer .dataTitle{
+  font-weight: 600;
+}

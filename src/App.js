@@ -5,6 +5,7 @@ import Dailyforcast from './Components/DailyForcast';
 import SearchBar from './Components/SearchBar';
 import TemperatureCard from './Components/TempratureCard';
 import WeatherChart from './Components/WeatherChart';
+import WeatherDataCard from './Components/WeatherDataCard';
 import Clouds from './images/clouds.png'
 import correctImage from './Utils/correctWeatherImage';
 
@@ -58,6 +59,11 @@ function App() {
       <div className='currentForcast'>
         <TemperatureCard temp={forcastData ? Math.round(forcastData.hourly[0].temp) : "24"} icon={forcastData? correctImage(forcastData.hourly[0].weather[0].icon): ""}/>
         <WeatherChart series={convertToArray(filterDataByDate(forcastData? forcastData.hourly: [], selectedDay))} labels={convertToTimeArray(filterDataByDate(forcastData? forcastData.hourly: [], selectedDay))}/>
+
+        <div className='extraDataContainer'>
+          <WeatherDataCard title="Pressure" value={forcastData? forcastData.hourly[0].pressure: ""} symbol="hpa" />
+          <WeatherDataCard title="Humidity" value={forcastData? forcastData.hourly[0].humidity: ""} symbol="%" />
+        </div>
       </div>
     </div>
   );
