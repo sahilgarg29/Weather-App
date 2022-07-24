@@ -8,20 +8,17 @@ const WeatherChart = ({series, labels}) => {
   const [options] = useState({
     chart: {
       type: 'area',
-      height: 350,
       zoom: {
-        enabled: false
+        enabled: true
       },
       
     },
     dataLabels: {
       enabled: true
     },
-    labels: labels,
     stroke: {
-      curve: 'straight'
+      curve: 'smooth'
     },
-    labels: labels,
     
     legend: {
       horizontalAlign: 'left'
