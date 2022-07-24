@@ -12,18 +12,26 @@ export default function correctImage(icon){
       case '01n':
         return Sunny;
       case '02d':
+      case '02n':  
         return FewClouds;
       case '03d':
       case '04d':
+      case '03n':
+      case '04n':
         return Clouds;
       case '09d':
       case '10d':
+      case '09n':
+      case '10n':
         return Rainy;
       case '011d':
+      case '011n':
         return ThunderStorm;
       case '13d':
+      case '13n':
         return Snow;
       case '50d':
+      case '50n':
         return Sunny;
       default:
         return Sunny;
