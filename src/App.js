@@ -7,6 +7,7 @@ import SunriseSunset from './Components/SunriseSunset';
 import TemperatureCard from './Components/TempratureCard';
 import WeatherChart from './Components/WeatherChart';
 import WeatherDataCard from './Components/WeatherDataCard';
+import citiesData from './Utils/citiesData';
 import correctImage from './Utils/correctWeatherImage';
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
   const [forcastData, setForcastData] = useState(null);
   const [selectedDay, setSelectedDay] = useState(0);
   const [selectedDayData, setSelectedDayData] = useState(null);
+  const [cities, setCities] = useState(citiesData);
 
   useEffect(() => {
     if ("geolocation" in navigator) {

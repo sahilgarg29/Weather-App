@@ -11,3 +11,7 @@
 .timmingContainer > div p:first-child{
   font-weight: 600;
 }
+
+.chartImage{
+  width: 100%;
+}
