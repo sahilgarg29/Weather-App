@@ -1,0 +1,19 @@
+.suggestionCard{
+  padding: 1rem;
+  border-bottom:1px solid rgba(0,0,0,.1);
+  border-left:1px solid rgba(0,0,0,.1);
+  border-right:1px solid rgba(0,0,0,.1);
+  cursor: pointer;
+  background-color: white;
+  display: flex;
+  justify-content: space-between;
+}
+
+.suggestionCardRight{
+  display: flex;
+  gap: 1rem;
+}
+
+.suggestionCardRight .suggestionCardImage{
+  width: 2rem;
+}

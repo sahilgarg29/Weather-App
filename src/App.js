@@ -3,6 +3,7 @@ import { fetchHourlyDailyWithCoordinartes, fetchCurrentWithCoordinartes, fetchCu
 import './App.css';
 import Dailyforcast from './Components/DailyForcast';
 import SearchBar from './Components/SearchBar';
+import SearchSuggestion from './Components/SearchSuggestion';
 import SunriseSunset from './Components/SunriseSunset';
 import TemperatureCard from './Components/TempratureCard';
 import WeatherChart from './Components/WeatherChart';
@@ -17,6 +18,8 @@ function App() {
   const [selectedDay, setSelectedDay] = useState(0);
   const [selectedDayData, setSelectedDayData] = useState(null);
   const [cities, setCities] = useState(citiesData);
+  const [isFocused, setIsFocused] = useState(false);
+  const [filterSuggestion, setFilterSuggestion] = useState([]);
 
   useEffect(() => {
     if ("geolocation" in navigator) {
@@ -35,6 +38,15 @@ function App() {
       console.log('geolocation is not enabled on this browser')
     }
   }, []);
+
+  useEffect(() => {
+    let filtered = cities.filter((city) => city.City.toLowerCase().includes(location.toLowerCase())).slice(0, 8);
+    Promise.all(filtered.map((e) => fetchCurrentWithCoordinartes(e.Lat, e.Long))).then((res) => {
+      filtered.forEach((e, i) => e.data = res[i])
+      console.log(filtered)
+      setFilterSuggestion(filtered);
+    })
+  }, [location])
 
 
   useEffect(() => {
@@ -65,12 +77,23 @@ function App() {
     return date.getHours() + ":00" 
   }
 
+  function handleSuggestionClick(city){
+    setLocation(city.City)
+    setIsFocused(false)
+    fetchHourlyDailyWithCoordinartes(city.Lat, city.Long).then((res) => {
+      setForcastData(res);
+    })
+  }
+  
   return (
     <div className='app'>
-      <SearchBar location={location} onLocationChange={setLocation} />
+      <div className='search'>
+        <SearchBar location={location} onLocationChange={setLocation} setIsFocused={setIsFocused}/>
+        {isFocused && <SearchSuggestion suggestions={filterSuggestion} onSuggestionClick={handleSuggestionClick}/>}
+      </div>
       <Dailyforcast dailyData={forcastData? forcastData.daily: []} onDayChange={setSelectedDay} selectedDay={selectedDay}/>
       <div className='currentForcast'>
-        <TemperatureCard temp={forcastData ? Math.round(forcastData.hourly[0].temp) : "24"} icon={forcastData? correctImage(forcastData.hourly[0].weather[0].icon): ""}/>
+        <TemperatureCard temp={selectedDayData? Math.round(selectedDayData.temp.day): ""} icon={selectedDayData? correctImage(selectedDayData.weather[0].icon): ""}/>
         <WeatherChart series={convertToArray(filterDataByDate(forcastData? forcastData.hourly: [], selectedDay))} labels={convertToTimeArray(filterDataByDate(forcastData? forcastData.hourly: [], selectedDay))}/>
 
         <div className='extraDataContainer'>
