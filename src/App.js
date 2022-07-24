@@ -25,6 +25,7 @@ function App() {
     if ("geolocation" in navigator) {
         navigator.geolocation.getCurrentPosition((position) => {
         console.log('latitude', position.coords.latitude, 'longitude', position.coords.longitude);
+        fetchCurrentWithCoordinartes(position.coords.latitude, position.coords.longitude).then(res => setLocation(res.name))
         fetchHourlyDailyWithCoordinartes(position.coords.latitude, position.coords.longitude).then((res) => {
           setForcastData(res)
         }).catch((err) => {
