@@ -67,6 +67,7 @@ function App() {
 
   return (
     <div className='app'>
+      
       <SearchBar location={location} onLocationChange={setLocation} />
       <Dailyforcast dailyData={forcastData? forcastData.daily: []} onDayChange={setSelectedDay} selectedDay={selectedDay}/>
       <div className='currentForcast'>
