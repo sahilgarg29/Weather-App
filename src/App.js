@@ -18,6 +18,8 @@ function App() {
   const [selectedDay, setSelectedDay] = useState(0);
   const [selectedDayData, setSelectedDayData] = useState(null);
   const [cities, setCities] = useState(citiesData);
+  const [isFocused, setIsFocused] = useState(false);
+  const [filterSuggestion, setFilterSuggestion] = useState([]);
 
   useEffect(() => {
     if ("geolocation" in navigator) {
@@ -36,6 +38,15 @@ function App() {
       console.log('geolocation is not enabled on this browser')
     }
   }, []);
+
+  useEffect(() => {
+    let filtered = cities.filter((city) => city.City.toLowerCase().includes(location.toLowerCase())).slice(0, 8);
+    Promise.all(filtered.map((e) => fetchCurrentWithCoordinartes(e.Lat, e.Long))).then((res) => {
+      filtered.forEach((e, i) => e.data = res[i])
+      console.log(filtered)
+      setFilterSuggestion(filtered);
+    })
+  }, [location])
 
 
   useEffect(() => {
@@ -66,11 +77,24 @@ function App() {
     return date.getHours() + ":00" 
   }
 
+  function handleSuggestionClick(city){
+    setLocation(city.City)
+    setIsFocused(false)
+  }
+  
+  // function fetchdata(location){
+  //   let filtered = cities.filter((city) => city.City.toLowerCase().includes(location.toLowerCase())).slice(0, 8);
+  //   Promise.all(filtered.map((e) => fetchCurrentWithCoordinartes(e.Lat, e.Long))).then((res) => {
+  //     console.log("Response", res)
+  //   })
+  //   return filtered;
+  // }
+
   return (
     <div className='app'>
       <div className='search'>
-        <SearchBar location={location} onLocationChange={setLocation} />
-        <SearchSuggestion suggestions={cities.filter((city) => city.City.toLowerCase().includes(location.toLowerCase())).slice(0, 8)}/>
+        <SearchBar location={location} onLocationChange={setLocation} setIsFocused={setIsFocused}/>
+        {isFocused && <SearchSuggestion suggestions={filterSuggestion} onSuggestionClick={handleSuggestionClick}/>}
       </div>
       <Dailyforcast dailyData={forcastData? forcastData.daily: []} onDayChange={setSelectedDay} selectedDay={selectedDay}/>
       <div className='currentForcast'>
