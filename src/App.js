@@ -3,6 +3,7 @@ import { fetchHourlyDailyWithCoordinartes, fetchCurrentWithCoordinartes, fetchCu
 import './App.css';
 import Dailyforcast from './Components/DailyForcast';
 import SearchBar from './Components/SearchBar';
+import SearchSuggestion from './Components/SearchSuggestion';
 import SunriseSunset from './Components/SunriseSunset';
 import TemperatureCard from './Components/TempratureCard';
 import WeatherChart from './Components/WeatherChart';
@@ -67,8 +68,10 @@ function App() {
 
   return (
     <div className='app'>
-      
-      <SearchBar location={location} onLocationChange={setLocation} />
+      <div className='search'>
+        <SearchBar location={location} onLocationChange={setLocation} />
+        <SearchSuggestion suggestions={cities.filter((city) => city.City.toLowerCase().includes(location.toLowerCase())).slice(0, 8)}/>
+      </div>
       <Dailyforcast dailyData={forcastData? forcastData.daily: []} onDayChange={setSelectedDay} selectedDay={selectedDay}/>
       <div className='currentForcast'>
         <TemperatureCard temp={forcastData ? Math.round(forcastData.hourly[0].temp) : "24"} icon={forcastData? correctImage(forcastData.hourly[0].weather[0].icon): ""}/>
