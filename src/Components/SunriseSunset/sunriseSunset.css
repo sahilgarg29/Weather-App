@@ -1,0 +1,13 @@
+.sunriseSunsetContainer{
+  margin-top: 2rem;
+}
+
+.timmingContainer{
+  display: flex;
+  justify-content: space-between;
+  
+}
+
+.timmingContainer > div p:first-child{
+  font-weight: 600;
+}

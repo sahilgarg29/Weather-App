@@ -1,9 +1,21 @@
 import React from 'react'
 import './sunriseSunset.css'
 
-const SunriseSunset = () => {
+const SunriseSunset = ({sunriseTime, sunsetTime}) => {
   return (
-    <div>SunriseSunset</div>
+    <div className='sunriseSunsetContainer'>
+      <div className='timmingContainer'>
+        <div>
+          <p>Sunrise</p>
+          <p>{sunriseTime}</p>
+        </div>
+
+        <div>
+          <p>Sunset</p>
+          <p>{sunsetTime}</p>
+        </div>
+      </div>
+    </div>
   )
 }
 

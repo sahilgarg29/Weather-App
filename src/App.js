@@ -3,10 +3,10 @@ import { fetchHourlyDailyWithCoordinartes, fetchCurrentWithCoordinartes, fetchCu
 import './App.css';
 import Dailyforcast from './Components/DailyForcast';
 import SearchBar from './Components/SearchBar';
+import SunriseSunset from './Components/SunriseSunset';
 import TemperatureCard from './Components/TempratureCard';
 import WeatherChart from './Components/WeatherChart';
 import WeatherDataCard from './Components/WeatherDataCard';
-import Clouds from './images/clouds.png'
 import correctImage from './Utils/correctWeatherImage';
 
 function App() {
@@ -14,6 +14,7 @@ function App() {
   const [location, setLocation] = useState("Bangalore");
   const [forcastData, setForcastData] = useState(null);
   const [selectedDay, setSelectedDay] = useState(0);
+  const [selectedDayData, setSelectedDayData] = useState(null);
 
   useEffect(() => {
     if ("geolocation" in navigator) {
@@ -31,7 +32,12 @@ function App() {
     } else {
       console.log('geolocation is not enabled on this browser')
     }
-  }, [])
+  }, []);
+
+
+  useEffect(() => {
+    setSelectedDayData(forcastData?.daily.filter((e) => new Date(e.dt * 1000).getDay() == selectedDay)[0]);
+  }, [selectedDay, forcastData])
 
   function filterDataByDate(hourlyData, day){
     let data = hourlyData.filter((e, i) => new Date(e.dt * 1000).getDay() === day && i % 2 === 0);
@@ -51,6 +57,11 @@ function App() {
     return arr;
   }
 
+  function getTimeFromDate(dt){
+    let date = new Date(dt* 1000);
+
+    return date.getHours() + ":00" 
+  }
 
   return (
     <div className='app'>
@@ -61,10 +72,10 @@ function App() {
         <WeatherChart series={convertToArray(filterDataByDate(forcastData? forcastData.hourly: [], selectedDay))} labels={convertToTimeArray(filterDataByDate(forcastData? forcastData.hourly: [], selectedDay))}/>
 
         <div className='extraDataContainer'>
-          <WeatherDataCard title="Pressure" value={forcastData? forcastData.hourly[0].pressure: ""} symbol="hpa" />
-          <WeatherDataCard title="Humidity" value={forcastData? forcastData.hourly[0].humidity: ""} symbol="%" />
+          <WeatherDataCard title="Pressure" value={selectedDayData? selectedDayData.pressure: ""} symbol="hpa" />
+          <WeatherDataCard title="Humidity" value={selectedDayData? selectedDayData.humidity: ""} symbol="%" />
         </div>
-        
+        <SunriseSunset sunriseTime={selectedDayData? getTimeFromDate(selectedDayData.sunrise) : ""} sunsetTime={selectedDayData? getTimeFromDate(selectedDayData.sunset) : ""}/>
       </div>
     </div>
   );
