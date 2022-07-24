@@ -80,16 +80,11 @@ function App() {
   function handleSuggestionClick(city){
     setLocation(city.City)
     setIsFocused(false)
+    fetchHourlyDailyWithCoordinartes(city.Lat, city.Long).then((res) => {
+      setForcastData(res);
+    })
   }
   
-  // function fetchdata(location){
-  //   let filtered = cities.filter((city) => city.City.toLowerCase().includes(location.toLowerCase())).slice(0, 8);
-  //   Promise.all(filtered.map((e) => fetchCurrentWithCoordinartes(e.Lat, e.Long))).then((res) => {
-  //     console.log("Response", res)
-  //   })
-  //   return filtered;
-  // }
-
   return (
     <div className='app'>
       <div className='search'>
@@ -98,7 +93,7 @@ function App() {
       </div>
       <Dailyforcast dailyData={forcastData? forcastData.daily: []} onDayChange={setSelectedDay} selectedDay={selectedDay}/>
       <div className='currentForcast'>
-        <TemperatureCard temp={forcastData ? Math.round(forcastData.hourly[0].temp) : "24"} icon={forcastData? correctImage(forcastData.hourly[0].weather[0].icon): ""}/>
+        <TemperatureCard temp={selectedDayData? Math.round(selectedDayData.temp.day): ""} icon={selectedDayData? correctImage(selectedDayData.weather[0].icon): ""}/>
         <WeatherChart series={convertToArray(filterDataByDate(forcastData? forcastData.hourly: [], selectedDay))} labels={convertToTimeArray(filterDataByDate(forcastData? forcastData.hourly: [], selectedDay))}/>
 
         <div className='extraDataContainer'>
