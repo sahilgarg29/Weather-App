@@ -64,6 +64,7 @@ function App() {
           <WeatherDataCard title="Pressure" value={forcastData? forcastData.hourly[0].pressure: ""} symbol="hpa" />
           <WeatherDataCard title="Humidity" value={forcastData? forcastData.hourly[0].humidity: ""} symbol="%" />
         </div>
+        
       </div>
     </div>
   );

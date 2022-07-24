@@ -16,5 +16,5 @@
 .extraDataContainer{
     display: flex;
     gap: 1em;
-    ;
+    margin-top: 1rem;
 }
